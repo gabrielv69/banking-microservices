@@ -1,0 +1,21 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: customer-service
+
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/customer_db
+    username: postgres
+    password: postgres
+
+  sql:
+    init:
+      mode: never
+
+logging:
+  level:
+    root: INFO
+    com.banking.customer: DEBUG
+    org.springframework.r2dbc: DEBUG

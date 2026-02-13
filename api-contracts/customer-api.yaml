@@ -1,0 +1,219 @@
+openapi: 3.0.3
+info:
+  title: Customer Service API
+  description: Gestión de Clientes y Personas
+  version: 1.0.0
+servers:
+  - url: http://localhost:8081/api/v1
+    description: Customer Service
+
+paths:
+  /customers:
+    get:
+      summary: List all customers
+      operationId: getAllCustomers
+      tags:
+        - Customers
+      responses:
+        '200':
+          description: Customer list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomerResponse'
+    
+    post:
+      summary: Create a new client
+      operationId: createCustomer
+      tags:
+        - Customers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerRequest'
+      responses:
+        '201':
+          description: Client successfully created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerResponse'
+        '400':
+          description: Invalid data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /customers/{customerId}:
+    get:
+      summary: Get customer by ID
+      operationId: getCustomerById
+      tags:
+        - Customers
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Customer found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerResponse'
+        '404':
+          description: Customer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    
+    put:
+      summary: Update Customer
+      operationId: updateCustomer
+      tags:
+        - Customers
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerRequest'
+      responses:
+        '200':
+          description: Updated customer
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerResponse'
+        '404':
+          description: Customer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    
+    delete:
+      summary: Delete Customer
+      operationId: deleteCustomer
+      tags:
+        - Customers
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '204':
+          description: Customer removed
+        '404':
+          description: Customer not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    CustomerRequest:
+      type: object
+      required:
+        - name
+        - gender
+        - identification
+        - address
+        - phone
+        - password
+      properties:
+        name:
+          type: string
+          example: "Jose Lema"
+          minLength: 3
+          maxLength: 100
+        gender:
+          type: string
+          enum: [MALE, FEMALE, OTHER]
+          example: "MALE"
+        identification:
+          type: string
+          example: "1234567890"
+          pattern: '^\d{10}$'
+        address:
+          type: string
+          example: "Otavalo sn y principal"
+          maxLength: 255
+        phone:
+          type: string
+          example: "098254785"
+          pattern: '^\d{9,10}$'
+        password:
+          type: string
+          format: password
+          example: "1234"
+          minLength: 4
+        active:
+          type: boolean
+          default: true
+    
+    CustomerResponse:
+      type: object
+      properties:
+        customerId:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: "Jose Lema"
+        gender:
+          type: string
+          example: "MALE"
+        identification:
+          type: string
+          example: "1234567890"
+        address:
+          type: string
+          example: "Otavalo sn y principal"
+        phone:
+          type: string
+          example: "098254785"
+        active:
+          type: boolean
+          example: true
+    
+    ErrorResponse:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          example: "2024-02-14T10:30:00Z"
+        status:
+          type: integer
+          example: 400
+        error:
+          type: string
+          example: "Bad Request"
+        message:
+          type: string
+          example: "Invalid customer data"
+        path:
+          type: string
+          example: "/api/v1/customers"
