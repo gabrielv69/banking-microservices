@@ -1,0 +1,42 @@
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: banking-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/BaseDatos.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - banking-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # pgAdmin - Database GUI (Optional)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: banking-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@banking.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    networks:
+      - banking-network
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+
+networks:
+  banking-network:
+    driver: bridge
