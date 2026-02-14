@@ -284,7 +284,7 @@ components:
           format: double
           example: 2000.00
           minimum: 0
-        active:
+        status:
           type: boolean
           default: true
         customerId:
@@ -309,7 +309,7 @@ components:
           type: number
           format: double
           example: 2000.00
-        active:
+        status:
           type: boolean
           example: true
         customerId:
