@@ -64,7 +64,11 @@ openApiGenerate {
             interfaceOnly: "true",
             skipDefaultInterface: "true",
             useTags: "true",
-            useSpringBoot3: "true"
+            useSpringBoot3: "true",
+            useBigDecimal: "true"
+    ]
+    typeMappings = [
+            decimal: "java.math.BigDecimal"  // ← Mapea decimal a BigDecimal
     ]
 }
 

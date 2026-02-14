@@ -281,7 +281,7 @@ components:
           example: "SAVINGS"
         initialBalance:
           type: number
-          format: double
+          format: decimal
           example: 2000.00
           minimum: 0
         status:
@@ -307,7 +307,7 @@ components:
           example: "SAVINGS"
         currentBalance:
           type: number
-          format: double
+          format: decimal
           example: 2000.00
         status:
           type: boolean
@@ -337,7 +337,7 @@ components:
           example: "DEBIT"
         value:
           type: number
-          format: double
+          format: decimal
           example: 575.00
           minimum: 0.01
 
@@ -357,11 +357,11 @@ components:
           example: "DEBIT"
         value:
           type: number
-          format: double
+          format: decimal
           example: 575.00
         balance:
           type: number
-          format: double
+          format: decimal
           example: 1425.00
         accountId:
           type: integer
@@ -402,7 +402,7 @@ components:
           example: "SAVINGS"
         currentBalance:
           type: number
-          format: double
+          format: decimal
           example: 1425.00
         movements:
           type: array
