@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 
 /**
  * Mapper to convert between Movement entity and DTOs
@@ -29,9 +30,8 @@ public class MovementMapper {
         return Movement.builder()
                 .accountId(request.getAccountId())
                 .movementType(request.getMovementType() != null ? request.getMovementType().name() : null)
-                .value(request.getValue()) // ← BigDecimal directo!
-                .date(LocalDateTime.now()) // Always set current timestamp
-                // balance will be calculated and set by the service
+                .value(request.getValue())
+                .date(LocalDateTime.now())
                 .build();
     }
 
@@ -49,7 +49,7 @@ public class MovementMapper {
 
         MovementResponse response = new MovementResponse();
         response.setMovementId(movement.getId());
-        response.setDate(OffsetDateTime.from(movement.getDate()));
+        response.setDate(movement.getDate().atOffset(ZoneOffset.UTC));
         response.setMovementType(movement.getMovementType());
         response.setValue(movement.getValue());
         response.setBalance(movement.getBalance());

@@ -31,12 +31,12 @@ CREATE TABLE IF NOT EXISTS customer (
     address VARCHAR(255) NOT NULL,
     phone VARCHAR(20) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    active BOOLEAN NOT NULL DEFAULT TRUE
+    status BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 -- Índices para optimizar búsquedas
 CREATE INDEX idx_customer_identification ON customer(identification);
-CREATE INDEX idx_customer_active ON customer(active);
+CREATE INDEX idx_customer_status ON customer(status);
 
 -- Comentarios en la tabla
 COMMENT ON TABLE customer IS 'Tabla de clientes que hereda los atributos de persona';
@@ -46,14 +46,14 @@ COMMENT ON COLUMN customer.identification IS 'Número de identificación único'
 COMMENT ON COLUMN customer.address IS 'Dirección del cliente';
 COMMENT ON COLUMN customer.phone IS 'Teléfono de contacto';
 COMMENT ON COLUMN customer.password IS 'Contraseña del cliente (debe estar encriptada)';
-COMMENT ON COLUMN customer.active IS 'Estado del cliente (activo/inactivo)';
+COMMENT ON COLUMN customer.status IS 'Estado del cliente (activo/inactivo)';
 
 -- =====================================================
 -- DATOS DE PRUEBA - CUSTOMER SERVICE
 -- =====================================================
 
 -- Insertar clientes de prueba (Caso de Uso 1)
-INSERT INTO customer (name, gender, identification, address, phone, password, active) VALUES
+INSERT INTO customer (name, gender, identification, address, phone, password, status) VALUES
 ('Jose Lema', 'MALE', '1234567890', 'Otavalo sn y principal', '098254785', '1234', TRUE),
 ('Marianela Montalvo', 'FEMALE', '0987654321', 'Amazonas y NNUU', '097548965', '5678', TRUE),
 ('Juan Osorio', 'MALE', '1122334455', '13 junio y Equinoccial', '098874587', '1245', TRUE);

@@ -316,9 +316,6 @@ components:
           type: integer
           format: int64
           example: 1
-        customerName:
-          type: string
-          example: "Jose Lema"
 
     MovementRequest:
       type: object
@@ -428,3 +425,30 @@ components:
         path:
           type: string
           example: "/api/v1/movements"
+
+    CustomerResponse:
+      type: object
+      description: Customer data from customer-service (for display only)
+      properties:
+        customerId:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: "Jose Lema"
+        identification:
+          type: string
+          example: "1234567890"
+        gender:
+          type: string
+          example: "MALE"
+        address:
+          type: string
+          example: "Otavalo sn y principal"
+        phone:
+          type: string
+          example: "098254785"
+        status:
+          type: boolean
+          example: true

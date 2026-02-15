@@ -52,27 +52,10 @@ public class AccountMapper {
         response.setCurrentBalance(account.getCurrentBalance());
         response.setStatus(account.getStatus());
         response.setCustomerId(account.getCustomerId());
-        // customerName will be set by the controller after fetching from customer-service
-        response.setCustomerName(null);
 
         return response;
     }
 
-    /**
-     * Convert Account entity to AccountResponse DTO with customer name
-     * Used when customer information is available
-     *
-     * @param account Account entity from database
-     * @param customerName Customer name from customer-service
-     * @return AccountResponse DTO for API with customer name
-     */
-    public AccountResponse toResponseWithCustomerName(Account account, String customerName) {
-        AccountResponse response = toResponse(account);
-        if (response != null) {
-            response.setCustomerName(customerName);
-        }
-        return response;
-    }
 
     /**
      * Update existing Account entity with data from AccountRequest
