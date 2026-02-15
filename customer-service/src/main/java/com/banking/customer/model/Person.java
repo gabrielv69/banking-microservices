@@ -27,11 +27,6 @@ public class Person {
     protected String gender;
 
     /**
-     * Age of the person.
-     */
-    protected Integer age;
-
-    /**
      * Unique personal identification (e.g., ID Card, SSN).
      * This is a critical business key.
      */

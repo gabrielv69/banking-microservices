@@ -7,7 +7,6 @@ import com.banking.account.infrastructure.adapter.rest.generated.model.CustomerR
 import com.banking.account.mapper.ReportMapper;
 import com.banking.account.model.Account;
 import lombok.extern.slf4j.Slf4j;
-import org.reactivestreams.Publisher;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -16,7 +15,6 @@ import java.util.List;
 
 /**
  * Implementation of ReportService
- *
  * Responsibilities:
  * - Orchestrate calls to multiple services
  * - Aggregate data from accounts and movements
@@ -85,9 +83,9 @@ public class ReportServiceImpl implements ReportService {
     /**
      * Build account detail with movements for date range
      *
-     * @param account account entity
+     * @param account   account entity
      * @param startDate start date
-     * @param endDate end date
+     * @param endDate   end date
      * @return Mono of AccountStatementDetail
      */
     private Mono<AccountStatementDetail> buildAccountDetail(
