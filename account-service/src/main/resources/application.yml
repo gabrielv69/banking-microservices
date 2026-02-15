@@ -21,7 +21,7 @@ customer-service:
 logging:
   level:
     root: INFO
-    com.banking.customer: DEBUG
+    com.banking.account: DEBUG
     org.springframework.r2dbc: DEBUG
 
 # Swagger UI / OpenAPI Configuration

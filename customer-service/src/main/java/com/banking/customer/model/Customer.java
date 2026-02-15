@@ -10,7 +10,9 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 /**
- * Customer entity that extends Person
+ * Customer Entity.
+ * Extends basic Person information with banking-specific fields.
+ * Mapped to the 'customer' table.
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -20,12 +22,21 @@ import org.springframework.data.relational.core.mapping.Table;
 @Table("customer")
 public class Customer extends Person {
 
+    /**
+     * Unique Customer ID (Primary Key).
+     */
     @Id
     private Long id;
 
+    /**
+     * Password or PIN for authentication.
+     */
     @Column("password")
     private String password;
 
+    /**
+     * Account status (Active/Inactive).
+     */
     @Column("status")
     private Boolean status;
 

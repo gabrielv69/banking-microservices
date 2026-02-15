@@ -9,6 +9,3 @@ public class MovementNotFoundException extends RuntimeException {
         super(message);
     }
 }
-
-
-
