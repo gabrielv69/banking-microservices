@@ -20,7 +20,60 @@ services:
       timeout: 5s
       retries: 5
 
-  # pgAdmin - Database GUI (Optional)
+  # Customer Service
+  customer-service:
+    build:
+      context: ./customer-service
+      dockerfile: Dockerfile
+    container_name: banking-customer-service
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_R2DBC_URL: r2dbc:postgresql://postgres:5432/customer_db
+      SPRING_R2DBC_USERNAME: postgres
+      SPRING_R2DBC_PASSWORD: postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - banking-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8081/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Account Service
+  account-service:
+    build:
+      context: ./account-service
+      dockerfile: Dockerfile
+    container_name: banking-account-service
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_R2DBC_URL: r2dbc:postgresql://postgres:5432/account_db
+      SPRING_R2DBC_USERNAME: postgres
+      SPRING_R2DBC_PASSWORD: postgres
+      CUSTOMER_SERVICE_BASE_URL: http://customer-service:8081/api/v1
+    depends_on:
+      postgres:
+        condition: service_healthy
+      customer-service:
+        condition: service_healthy
+    networks:
+      - banking-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8082/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: pgAdmin for database management
   pgadmin:
     image: dpage/pgadmin4:latest
     container_name: banking-pgadmin
@@ -29,13 +82,16 @@ services:
       PGADMIN_DEFAULT_PASSWORD: admin
     ports:
       - "5050:80"
-    networks:
-      - banking-network
     depends_on:
       - postgres
+    networks:
+      - banking-network
+    profiles:
+      - tools
 
 volumes:
   postgres_data:
+    driver: local
 
 networks:
   banking-network:
