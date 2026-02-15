@@ -168,7 +168,7 @@ components:
           format: password
           example: "1234"
           minLength: 4
-        active:
+        status:
           type: boolean
           default: true
     
@@ -194,7 +194,7 @@ components:
         phone:
           type: string
           example: "098254785"
-        active:
+        status:
           type: boolean
           example: true
     
