@@ -49,33 +49,11 @@ public class AccountMapper {
         response.setAccountId(account.getId());
         response.setAccountNumber(account.getAccountNumber());
         response.setAccountType(account.getAccountType());
+        response.setInitialBalance(account.getInitialBalance());
         response.setCurrentBalance(account.getCurrentBalance());
         response.setStatus(account.getStatus());
         response.setCustomerId(account.getCustomerId());
 
         return response;
-    }
-
-
-    /**
-     * Update existing Account entity with data from AccountRequest
-     * Used in update operations to preserve the ID
-     *
-     * @param entity Existing account entity
-     * @param request Updated account data
-     * @return Updated account entity
-     */
-    public Account updateEntityFromRequest(Account entity, AccountRequest request) {
-        if (entity == null || request == null) {
-            return entity;
-        }
-
-        entity.setAccountNumber(request.getAccountNumber());
-        entity.setAccountType(request.getAccountType() != null ? request.getAccountType().name() : null);
-        entity.setInitialBalance(request.getInitialBalance());
-        entity.setStatus(request.getStatus() != null ? request.getStatus() : true);
-        entity.setCustomerId(request.getCustomerId());
-
-        return entity;
     }
 }

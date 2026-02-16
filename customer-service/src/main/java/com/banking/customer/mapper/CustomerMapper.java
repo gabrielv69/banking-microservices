@@ -35,7 +35,6 @@ public class CustomerMapper {
                 .build();
     }
 
-
     /**
      * Convert Customer entity to CustomerResponse DTO
      * Used when returning data to the client
@@ -59,29 +58,4 @@ public class CustomerMapper {
 
         return response;
     }
-
-    /**
-     * Update existing Customer entity with data from CustomerRequest
-     * Used in update operations to preserve the ID
-     *
-     * @param entity Existing customer entity
-     * @param request Updated customer data
-     * @return Updated customer entity
-     */
-    public Customer updateEntityFromRequest(Customer entity, CustomerRequest request) {
-        if (entity == null || request == null) {
-            return entity;
-        }
-
-        entity.setName(request.getName());
-        entity.setGender(request.getGender() != null ? request.getGender().name() : null);
-        entity.setIdentification(request.getIdentification());
-        entity.setAddress(request.getAddress());
-        entity.setPhone(request.getPhone());
-        entity.setPassword(request.getPassword());
-        entity.setStatus(request.getStatus() != null ? request.getStatus() : true);
-
-        return entity;
-    }
-
 }

@@ -1,5 +1,6 @@
 package com.banking.account.controller;
 
+import com.banking.account.constants.AccountMessages;
 import com.banking.account.infrastructure.adapter.rest.generated.ReportsApi;
 import com.banking.account.infrastructure.adapter.rest.generated.model.AccountStatementResponse;
 import com.banking.account.service.ReportService;
@@ -13,8 +14,8 @@ import reactor.core.publisher.Mono;
 import java.time.LocalDate;
 
 /**
- * REST Controller for Reports
- *
+ * REST Controller for Reports.
+ * Implements ReportsApi from OpenAPI specification.
  */
 @Slf4j
 @RestController
@@ -27,26 +28,12 @@ public class ReportController implements ReportsApi {
         this.reportService = reportService;
     }
 
-    /**
-     * Generate account statement report
-     *
-     * @param customerId customer identifier
-     * @param startDate start date (format: yyyy-MM-dd)
-     * @param endDate end date (format: yyyy-MM-dd)
-     * @param exchange server exchange
-     * @return ResponseEntity with account statement report
-     */
     @Override
-    public Mono<ResponseEntity<AccountStatementResponse>> generateAccountStatement(Long customerId, LocalDate startDate, LocalDate endDate, ServerWebExchange exchange) {
-        log.info("GET /api/v1/reports/{} - Generating account statement (startDate: {}, endDate: {})",
-                customerId, startDate, endDate);
+    public Mono<ResponseEntity<AccountStatementResponse>> generateAccountStatement(
+            Long customerId, LocalDate startDate, LocalDate endDate, ServerWebExchange exchange) {
+        log.info(AccountMessages.LOG_REPORT_GENERATE, customerId, startDate, endDate);
 
         return reportService.generateAccountStatement(customerId, startDate, endDate)
-                .map(ResponseEntity::ok)
-                .doOnSuccess(response ->
-                        log.info("Account statement generated successfully for customer: {}", customerId))
-                .doOnError(error ->
-                        log.error("Error generating account statement for customer {}: {}",
-                                customerId, error.getMessage()));
+                .map(ResponseEntity::ok);
     }
 }

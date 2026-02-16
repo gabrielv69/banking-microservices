@@ -49,7 +49,7 @@ public class MovementMapper {
 
         MovementResponse response = new MovementResponse();
         response.setMovementId(movement.getId());
-        response.setDate(movement.getDate().atOffset(ZoneOffset.UTC));
+        response.setDate(movement.getDate() != null ? movement.getDate().atOffset(ZoneOffset.UTC) : null);
         response.setMovementType(movement.getMovementType());
         response.setValue(movement.getValue());
         response.setBalance(movement.getBalance());
