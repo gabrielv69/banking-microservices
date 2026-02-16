@@ -40,15 +40,12 @@ public final class AccountMessages {
     public static final String LOG_ACCOUNT_GET_ALL = "GET /api/v1/accounts - Getting all accounts";
     public static final String LOG_ACCOUNT_GET_ALL_SUCCESS = "Successfully fetched all accounts";
     public static final String LOG_ACCOUNT_GET_BY_ID = "GET /api/v1/accounts/{} - Getting account by ID";
-    public static final String LOG_ACCOUNT_FOUND = "Account found with ID: {}";
     public static final String LOG_ACCOUNT_CREATE = "POST /api/v1/accounts - Creating new account";
     public static final String LOG_ACCOUNT_UPDATE = "PUT /api/v1/accounts/{} - Updating account";
     public static final String LOG_ACCOUNT_DELETE = "DELETE /api/v1/accounts/{} - Deleting account";
     public static final String LOG_ACCOUNT_CREATED = "Account created successfully with ID: {}";
     public static final String LOG_ACCOUNT_UPDATED = "Account updated successfully with ID: {}";
     public static final String LOG_ACCOUNT_DELETED = "Account deleted successfully with ID: {}";
-    public static final String LOG_ACCOUNT_ERROR_CREATE = "Error creating account: {}";
-    public static final String LOG_ACCOUNT_ERROR_GET = "Error getting account with ID {}: {}";
     public static final String LOG_ACCOUNT_ERROR_UPDATE = "Error updating account with ID {}: {}";
     public static final String LOG_ACCOUNT_ERROR_DELETE = "Error deleting account with ID {}: {}";
 
@@ -56,15 +53,10 @@ public final class AccountMessages {
     public static final String LOG_MOVEMENT_GET_ALL = "GET /api/v1/movements - Getting all movements";
     public static final String LOG_MOVEMENT_GET_ALL_SUCCESS = "Successfully fetched all movements";
     public static final String LOG_MOVEMENT_GET_BY_ID = "GET /api/v1/movements/{} - Getting movement by ID";
-    public static final String LOG_MOVEMENT_CREATE = "POST /api/v1/movements - Creating new movement";
     public static final String LOG_MOVEMENT_DELETE = "DELETE /api/v1/movements/{} - Deleting movement";
     public static final String LOG_MOVEMENT_REGISTERED = "Movement registered: type={}, value={}, newBalance={}";
-    public static final String LOG_MOVEMENT_REGISTERED_SUCCESS = "Movement registered successfully - ID: {}, Type: {}, Value: {}";
     public static final String LOG_MOVEMENT_DELETED_SUCCESS = "Movement deleted successfully with ID: {}";
     public static final String LOG_MOVEMENT_ERROR = "Error registering movement: {}";
-    public static final String LOG_MOVEMENT_ERROR_DELETE = "Error deleting movement with ID {}: {}";
-    public static final String LOG_MOVEMENT_ERROR_GET = "Error getting movement with ID {}: {}";
-
     // === Report Log Messages ===
     public static final String LOG_REPORT_GENERATE = "Generating account statement for customer: {}, from: {} to: {}";
     public static final String LOG_REPORT_GENERATED = "Account statement generated for customer: {}";
@@ -77,4 +69,27 @@ public final class AccountMessages {
     public static final String LOG_DELETING_ACCOUNT = "Deleting account with ID: {}";
     public static final String LOG_REGISTERING_MOVEMENT = "Registering {} movement of {} for account {}";
     public static final String LOG_BALANCE_UPDATED = "Balance updated for account {}: {}";
+    public static final String LOG_ACCOUNT_GET_BY_NUMBER = "Fetching account with number: {}";
+    public static final String LOG_ACCOUNT_GET_BY_CUSTOMER = "Fetching accounts for customer ID: {}";
+    public static final String LOG_MOVEMENT_GET_BY_ACCOUNT = "Fetching movements for account ID: {}";
+    public static final String LOG_MOVEMENT_GET_BY_DATE_RANGE = "Fetching movements for account {} between {} and {}";
+    public static final String LOG_MOVEMENT_CREATE = "POST /api/v1/movements - Creating new movement";
+    public static final String LOG_MOVEMENT_DELETE_WARN = "DELETE /api/v1/movements/{} - Consider reversal instead";
+
+    // === Report Detail Log Messages ===
+    public static final String LOG_REPORT_BUILDING_DETAIL = "Building statement detail for account: {}";
+    public static final String LOG_REPORT_MOVEMENTS_COUNT = "Account {} has {} movements in period";
+    public static final String LOG_REPORT_GENERATED_DETAIL = "Account statement generated successfully - CustomerId: {}, Accounts: {}";
+    public static final String LOG_REPORT_ERROR_DETAIL = "Error generating account statement for customer {}: {}";
+
+    // === Customer Client Log Messages ===
+    public static final String LOG_CLIENT_CALLING = "Calling customer-service: GET /customers/{}";
+    public static final String LOG_CLIENT_SUCCESS = "Successfully retrieved customer: id={}, name={}";
+    public static final String LOG_CLIENT_ERROR_NOT_FOUND = "Customer not found or bad request: customerId={}";
+    public static final String LOG_CLIENT_ERROR_SERVER = "Customer-service error: customerId={}";
+    public static final String LOG_CLIENT_ERROR_CALL = "Error calling customer-service for customerId {}: {}";
+    public static final String LOG_CLIENT_FALLBACK = "Returning empty result due to error: {}";
+    public static final String LOG_CLIENT_STRICT_CALLING = "Calling customer-service (strict): GET /customers/{}";
+    public static final String LOG_CLIENT_STRICT_SUCCESS = "Retrieved customer: {}";
+    public static final String LOG_CLIENT_STRICT_ERROR = "Error retrieving customer {}: {}";
 }

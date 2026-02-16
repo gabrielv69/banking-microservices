@@ -33,15 +33,14 @@ public final class CustomerMessages {
     public static final String LOG_CREATED_SUCCESS = "Customer created successfully with ID: {}";
     public static final String LOG_UPDATED_SUCCESS = "Customer updated successfully with ID: {}";
     public static final String LOG_DELETED_SUCCESS = "Customer deleted successfully with ID: {}";
-    public static final String LOG_FOUND = "Customer found with ID: {}";
     public static final String LOG_ERROR_CREATE = "Error creating customer: {}";
     public static final String LOG_ERROR_UPDATE = "Error updating customer: {}";
     public static final String LOG_ERROR_DELETE = "Error deleting customer: {}";
-    public static final String LOG_ERROR_GET = "Error getting customer: {}";
     public static final String LOG_CREATING_CUSTOMER = "Creating new customer with identification: {}";
     public static final String LOG_UPDATING_CUSTOMER = "Updating customer with ID: {}";
     public static final String LOG_DELETING_CUSTOMER = "Deleting customer with ID: {}";
     public static final String LOG_GETTING_ALL = "Getting all customers";
     public static final String LOG_GETTING_ALL_SUCCESS = "Successfully fetched all customers";
     public static final String LOG_GETTING_BY_ID = "Getting customer with ID: {}";
+
 }

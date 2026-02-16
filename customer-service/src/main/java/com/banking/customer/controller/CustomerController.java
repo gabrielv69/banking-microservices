@@ -1,5 +1,6 @@
 package com.banking.customer.controller;
 
+import com.banking.customer.constants.CustomerMessages;
 import com.banking.customer.infrastructure.adapter.rest.generated.CustomersApi;
 import com.banking.customer.infrastructure.adapter.rest.generated.model.CustomerRequest;
 import com.banking.customer.infrastructure.adapter.rest.generated.model.CustomerResponse;
@@ -15,9 +16,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
- * REST Controller for Customer management
- * Implements the CustomersApi interface generated from OpenAPI specification
- * Uses constructor injection and reactive programming with WebFlux
+ * REST Controller for Customer management.
+ * Implements the CustomersApi interface generated from OpenAPI specification.
  */
 @Slf4j
 @RestController
@@ -34,85 +34,53 @@ public class CustomerController implements CustomersApi {
         this.customerMapper = customerMapper;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public Mono<ResponseEntity<CustomerResponse>> createCustomer(Mono<CustomerRequest> customerRequest, ServerWebExchange exchange) {
-        log.info("POST /api/v1/customers - Creating new customer");
-
+    public Mono<ResponseEntity<CustomerResponse>> createCustomer(Mono<CustomerRequest> customerRequest,
+                                                                 ServerWebExchange exchange) {
+        log.info(CustomerMessages.LOG_CREATE);
         return customerRequest
                 .map(customerMapper::toEntity)
                 .flatMap(customerService::createCustomer)
                 .map(customerMapper::toResponse)
-                .map(response -> ResponseEntity.status(HttpStatus.CREATED).body(response))
-                .doOnSuccess(response ->
-                        log.info("Customer created successfully with ID: {}",
-                                response.getBody().getCustomerId()))
-                .doOnError(error ->
-                        log.error("Error creating customer: {}", error.getMessage()));
+                .map(response -> ResponseEntity.status(HttpStatus.CREATED).body(response));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Mono<ResponseEntity<Void>> deleteCustomer(Long customerId, ServerWebExchange exchange) {
-        log.info("DELETE /api/v1/customers/{} - Deleting customer", customerId);
+        log.info(CustomerMessages.LOG_DELETE, customerId);
 
         return customerService.deleteCustomer(customerId)
-                .then(Mono.just(ResponseEntity.noContent().<Void>build()))
-                .doOnSuccess(response ->
-                        log.info("Customer deleted successfully with ID: {}", customerId))
-                .doOnError(error ->
-                        log.error("Error deleting customer {}: {}", customerId, error.getMessage()));
+                .then(Mono.just(ResponseEntity.noContent().<Void>build()));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Mono<ResponseEntity<Flux<CustomerResponse>>> getAllCustomers(ServerWebExchange exchange) {
-        log.info("GET /api/v1/customers - Fetching all customers");
+        log.info(CustomerMessages.LOG_GET_ALL);
+
         Flux<CustomerResponse> customers = customerService.getAllCustomers()
-                .map(customerMapper::toResponse)
-                .doOnComplete(() -> log.info("Successfully retrieved all customers"));
+                .map(customerMapper::toResponse);
+
         return Mono.just(ResponseEntity.ok(customers));
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public Mono<ResponseEntity<CustomerResponse>> getCustomerById(Long customerId, ServerWebExchange exchange) {
-        log.info("GET /api/v1/customers/{} - Fetching customer", customerId);
+        log.info(CustomerMessages.LOG_GET_BY_ID, customerId);
 
         return customerService.getCustomerById(customerId)
                 .map(customerMapper::toResponse)
-                .map(ResponseEntity::ok)
-                .doOnSuccess(response ->
-                        log.info("Customer found with ID: {}", customerId))
-                .doOnError(error ->
-                        log.error("Error fetching customer {}: {}", customerId, error.getMessage()));
+                .map(ResponseEntity::ok);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public Mono<ResponseEntity<CustomerResponse>> updateCustomer(Long customerId, Mono<CustomerRequest> customerRequest, ServerWebExchange exchange) {
-
-        log.info("PUT /api/v1/customers/{} - Updating customer", customerId);
+    public Mono<ResponseEntity<CustomerResponse>> updateCustomer(Long customerId,
+                                                                 Mono<CustomerRequest> customerRequest, ServerWebExchange exchange) {
+        log.info(CustomerMessages.LOG_UPDATE, customerId);
 
         return customerRequest
                 .map(customerMapper::toEntity)
                 .flatMap(customer -> customerService.updateCustomer(customerId, customer))
                 .map(customerMapper::toResponse)
-                .map(ResponseEntity::ok)
-                .doOnSuccess(response ->
-                        log.info("Customer updated successfully with ID: {}", customerId))
-                .doOnError(error ->
-                        log.error("Error updating customer {}: {}", customerId, error.getMessage()));
+                .map(ResponseEntity::ok);
     }
 }
-
