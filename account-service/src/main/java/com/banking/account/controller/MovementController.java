@@ -6,7 +6,6 @@ import com.banking.account.infrastructure.adapter.rest.generated.model.MovementR
 import com.banking.account.infrastructure.adapter.rest.generated.model.MovementResponse;
 import com.banking.account.mapper.MovementMapper;
 import com.banking.account.service.MovementService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

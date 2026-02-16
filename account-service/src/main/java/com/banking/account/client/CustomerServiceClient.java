@@ -1,6 +1,7 @@
 package com.banking.account.client;
 
 import com.banking.account.constants.AccountMessages;
+import com.banking.account.exception.CustomerNotFoundException;
 import com.banking.account.infrastructure.adapter.rest.generated.model.CustomerResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -24,10 +25,15 @@ public class CustomerServiceClient {
 
     /**
      * Get customer information by ID from customer-service.
-     * Returns empty Mono on error (graceful degradation).
+     * Throws CustomerNotFoundException if customer not found (404).
+     *
+     * This method follows Fail Fast principle:
+     * - 404 Client Error → CustomerNotFoundException (propagated)
+     * - 5xx Server Error → RuntimeException (can be handled by caller)
      *
      * @param customerId customer identifier
-     * @return Mono of CustomerResponse (empty if not found or error)
+     * @return Mono of CustomerResponse
+     * @throws CustomerNotFoundException if customer not found (404)
      */
     public Mono<CustomerResponse> getCustomerById(Long customerId) {
         log.info(AccountMessages.LOG_CLIENT_CALLING, customerId);
@@ -40,7 +46,8 @@ public class CustomerServiceClient {
                         status -> status.is4xxClientError(),
                         clientResponse -> {
                             log.error(AccountMessages.LOG_CLIENT_ERROR_NOT_FOUND, customerId);
-                            return Mono.error(new RuntimeException(
+                            // Throw specific exception that will be propagated
+                            return Mono.error(new CustomerNotFoundException(
                                     String.format(AccountMessages.CUSTOMER_NOT_FOUND, customerId)));
                         })
                 .onStatus(
@@ -56,10 +63,6 @@ public class CustomerServiceClient {
                         log.info(AccountMessages.LOG_CLIENT_SUCCESS,
                                 customerId, customer.getName());
                     }
-                })
-                .onErrorResume(error -> {
-                    log.warn(AccountMessages.LOG_CLIENT_FALLBACK, error.getMessage());
-                    return Mono.empty();
                 });
     }
 }
