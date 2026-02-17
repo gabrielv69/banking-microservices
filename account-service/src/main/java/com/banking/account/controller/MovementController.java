@@ -34,9 +34,9 @@ public class MovementController implements MovementsApi {
     }
 
     @Override
-    public Mono<ResponseEntity<Flux<MovementResponse>>> getAllMovements(ServerWebExchange exchange) {
+    public Mono<ResponseEntity<Flux<MovementResponse>>> getAllMovements(Long customerId,ServerWebExchange exchange) {
         log.info(AccountMessages.LOG_MOVEMENT_GET_ALL);
-        Flux<MovementResponse> movements = movementService.getAllMovements()
+        Flux<MovementResponse> movements = movementService.getAllMovements(customerId)
                 .map(movementMapper::toResponse);
         return Mono.just(ResponseEntity.ok(movements));
     }

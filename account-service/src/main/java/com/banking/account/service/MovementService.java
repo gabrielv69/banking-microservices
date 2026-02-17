@@ -15,9 +15,10 @@ public interface MovementService {
 
     /**
      * Get all movements
+     * @param customerId CUSTOMER ID optional
      * @return Flux of all movements
      */
-    Flux<Movement> getAllMovements();
+    Flux<Movement> getAllMovements(Long customerId);
 
     /**
      * Get movement by ID

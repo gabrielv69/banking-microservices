@@ -237,12 +237,13 @@ cd account-service
 | DELETE | `/api/v1/accounts/{id}`         | Eliminar cuenta                |
 
 #### Movimientos
-| Método | Endpoint | Descripción |
-|--------|----------|-------------|
-| GET | `/api/v1/movements` | Listar todos los movimientos |
-| POST | `/api/v1/movements` | Registrar movimiento (F2, F3) |
-| GET | `/api/v1/movements/{id}` | Obtener movimiento por ID |
-| DELETE | `/api/v1/movements/{id}` | Eliminar movimiento |
+| Método | Endpoint | Descripción                                  |
+|--------|----------|----------------------------------------------|
+| GET | `/api/v1/movements` | Listar todos los movimientos                 |
+| GET | `/api/v1/movements?customerId=1` | Listar todos los movimientos por customer ID |
+| POST | `/api/v1/movements` | Registrar movimiento (F2, F3)                |
+| GET | `/api/v1/movements/{id}` | Obtener movimiento por ID                    |
+| DELETE | `/api/v1/movements/{id}` | Eliminar movimiento                          |
 
 #### Reportes
 | Método | Endpoint | Descripción |
