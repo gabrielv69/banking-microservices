@@ -35,9 +35,9 @@ public class AccountController implements AccountsApi {
 
 
     @Override
-    public Mono<ResponseEntity<Flux<AccountResponse>>> getAllAccounts(ServerWebExchange exchange) {
-        log.info(AccountMessages.LOG_ACCOUNT_GET_ALL);
-        Flux<AccountResponse> accounts = accountService.getAllAccounts()
+    public Mono<ResponseEntity<Flux<AccountResponse>>> getAllAccounts(Long customerId,ServerWebExchange exchange) {
+        log.info(AccountMessages.LOG_ACCOUNT_GET_ALL,customerId);
+        Flux<AccountResponse> accounts = accountService.getAllAccounts(customerId)
                 .map(accountMapper::toResponse);
         return Mono.just(ResponseEntity.ok(accounts));
     }

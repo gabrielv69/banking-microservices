@@ -3,11 +3,13 @@ package com.banking.account.service;
 import com.banking.account.client.CustomerServiceClient;
 import com.banking.account.constants.AccountMessages;
 import com.banking.account.exception.CustomerNotFoundException;
+import com.banking.account.exception.InvalidDateRangeException;
 import com.banking.account.infrastructure.adapter.rest.generated.model.AccountStatementDetail;
 import com.banking.account.infrastructure.adapter.rest.generated.model.AccountStatementResponse;
 import com.banking.account.infrastructure.adapter.rest.generated.model.CustomerResponse;
 import com.banking.account.mapper.ReportMapper;
 import com.banking.account.model.Account;
+import com.banking.account.validator.ReportDateValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -29,15 +31,18 @@ public class ReportServiceImpl implements ReportService {
     private final MovementService movementService;
     private final CustomerServiceClient customerServiceClient;
     private final ReportMapper reportMapper;
+    private final ReportDateValidator reportDateValidator;
 
     public ReportServiceImpl(AccountService accountService,
                              MovementService movementService,
                              CustomerServiceClient customerServiceClient,
-                             ReportMapper reportMapper) {
+                             ReportMapper reportMapper,
+                             ReportDateValidator reportDateValidator) {
         this.accountService = accountService;
         this.movementService = movementService;
         this.customerServiceClient = customerServiceClient;
         this.reportMapper = reportMapper;
+        this.reportDateValidator = reportDateValidator;
     }
 
     /**
@@ -55,6 +60,14 @@ public class ReportServiceImpl implements ReportService {
 
         log.info(AccountMessages.LOG_REPORT_GENERATE,
                 customerId, startDate, endDate);
+
+        // Validate date range
+        try {
+            reportDateValidator.validateDateRange(startDate, endDate);
+        } catch (InvalidDateRangeException ex) {
+            return Mono.error(ex); // Return validation error immediately
+        }
+
 
         // Validate customer exists FIRST (Fail Fast)
         return validateCustomerExists(customerId)
@@ -104,7 +117,7 @@ public class ReportServiceImpl implements ReportService {
             LocalDate startDate,
             LocalDate endDate) {
 
-        return accountService.getAccountsByCustomerId(customerId)
+        return accountService.getAllAccounts(customerId)
                 .flatMap(account -> buildAccountDetail(account, startDate, endDate))
                 .collectList()
                 .map(accountDetails -> reportMapper.toAccountStatementResponse(

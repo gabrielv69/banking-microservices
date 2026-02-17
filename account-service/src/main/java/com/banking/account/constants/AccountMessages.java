@@ -33,12 +33,12 @@ public final class AccountMessages {
 
     // === Customer Client Messages ===
     public static final String CUSTOMER_NOT_FOUND = "Customer not found with ID: %d";
-    public static final String CUSTOMER_SERVICE_ERROR = "Error communicating with customer-service: %s";
     public static final String CUSTOMER_SERVICE_UNAVAILABLE = "Customer service is not available";
 
     // === Account Log Messages ===
-    public static final String LOG_ACCOUNT_GET_ALL = "GET /api/v1/accounts - Getting all accounts";
+    public static final String LOG_ACCOUNT_GET_ALL = "GET /api/v1/accounts - customerId filter: {}";
     public static final String LOG_ACCOUNT_GET_ALL_SUCCESS = "Successfully fetched all accounts";
+    public static final String LOG_ACCOUNT_GET_BY_CUSTOMER_ID_SUCCESS = "Successfully fetched accounts for customer {}";
     public static final String LOG_ACCOUNT_GET_BY_ID = "GET /api/v1/accounts/{} - Getting account by ID";
     public static final String LOG_ACCOUNT_CREATE = "POST /api/v1/accounts - Creating new account";
     public static final String LOG_ACCOUNT_UPDATE = "PUT /api/v1/accounts/{} - Updating account";
@@ -59,10 +59,6 @@ public final class AccountMessages {
     public static final String LOG_MOVEMENT_ERROR = "Error registering movement: {}";
     // === Report Log Messages ===
     public static final String LOG_REPORT_GENERATE = "Generating account statement for customer: {}, from: {} to: {}";
-    public static final String LOG_REPORT_GENERATED = "Account statement generated for customer: {}";
-    public static final String LOG_REPORT_GENERATED_SUCCESS = "Account statement generated successfully for customer: {}";
-    public static final String LOG_REPORT_ERROR = "Error generating account statement: {}";
-
     // === Service Layer Log Messages ===
     public static final String LOG_CREATING_ACCOUNT = "Creating account with number: {}";
     public static final String LOG_UPDATING_ACCOUNT = "Updating account with ID: {}";
@@ -77,8 +73,6 @@ public final class AccountMessages {
     public static final String LOG_MOVEMENT_DELETE_WARN = "DELETE /api/v1/movements/{} - Consider reversal instead";
 
     // === Report Detail Log Messages ===
-    public static final String LOG_REPORT_BUILDING_DETAIL = "Building statement detail for account: {}";
-    public static final String LOG_REPORT_MOVEMENTS_COUNT = "Account {} has {} movements in period";
     public static final String LOG_REPORT_GENERATED_DETAIL = "Account statement generated successfully - CustomerId: {}, Accounts: {}";
     public static final String LOG_REPORT_ERROR_DETAIL = "Error generating account statement for customer {}: {}";
 
@@ -87,9 +81,5 @@ public final class AccountMessages {
     public static final String LOG_CLIENT_SUCCESS = "Successfully retrieved customer: id={}, name={}";
     public static final String LOG_CLIENT_ERROR_NOT_FOUND = "Customer not found or bad request: customerId={}";
     public static final String LOG_CLIENT_ERROR_SERVER = "Customer-service error: customerId={}";
-    public static final String LOG_CLIENT_ERROR_CALL = "Error calling customer-service for customerId {}: {}";
-    public static final String LOG_CLIENT_FALLBACK = "Returning empty result due to error: {}";
-    public static final String LOG_CLIENT_STRICT_CALLING = "Calling customer-service (strict): GET /customers/{}";
-    public static final String LOG_CLIENT_STRICT_SUCCESS = "Retrieved customer: {}";
-    public static final String LOG_CLIENT_STRICT_ERROR = "Error retrieving customer {}: {}";
+
 }

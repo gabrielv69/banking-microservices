@@ -115,6 +115,19 @@ public class AccountExceptionHandler {
                 String.format(AccountMessages.UNEXPECTED_ERROR, ex.getMessage()), exchange);
     }
 
+    /**
+     * Handle InvalidDateRangeException
+     * Returns 400 Bad Request
+     */
+    @ExceptionHandler(InvalidDateRangeException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidDateRangeException(
+            InvalidDateRangeException ex,
+            ServerWebExchange exchange) {
+
+        log.error("Invalid date range: {}", ex.getMessage());
+        return buildResponseEntity(HttpStatus.BAD_REQUEST, ex.getMessage(), exchange);
+    }
+
 
     /**
      * Builds a standardized error ResponseEntity.

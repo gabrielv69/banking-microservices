@@ -84,7 +84,7 @@ public class AccountServiceTest {
                 .currentBalance(new BigDecimal("1000.00"))
                 .build();
         when(accountRepository.findAll()).thenReturn(Flux.just(testAccount, account2));
-        StepVerifier.create(accountService.getAllAccounts())
+        StepVerifier.create(accountService.getAllAccounts(null))
                 .expectNextMatches(account -> account.getAccountNumber().equals("478758"))
                 .expectNextMatches(account -> account.getAccountNumber().equals("585545"))
                 .verifyComplete();

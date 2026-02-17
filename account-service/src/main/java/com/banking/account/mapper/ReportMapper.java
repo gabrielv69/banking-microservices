@@ -37,6 +37,7 @@ public class ReportMapper {
         }
 
         AccountStatementDetail detail = new AccountStatementDetail();
+        detail.setAccountId(account.getId());
         detail.setAccountNumber(account.getAccountNumber());
         detail.setAccountType(account.getAccountType());
         detail.setCurrentBalance(account.getCurrentBalance());
