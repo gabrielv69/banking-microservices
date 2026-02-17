@@ -55,6 +55,15 @@ public interface AccountService {
      * @return Mono of updated Account
      */
     Mono<Account> updateBalance(Long accountId, BigDecimal newBalance);
+
+    /**
+     * Get account by account number.
+     * Used by MovementService.resolveAccount() to support accountNumber in MovementRequest.
+     *
+     * @param accountNumber user-friendly account number (e.g. "478758")
+     * @return Mono of Account
+     */
+    Mono<Account> getAccountByNumber(String accountNumber);
 }
 
 

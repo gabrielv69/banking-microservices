@@ -23,6 +23,7 @@ public final class AccountMessages {
     public static final String INVALID_MOVEMENT_TYPE = "Invalid movement type: %s. Must be CREDIT or DEBIT";
 
     // === Validation Messages ===
+    public static final String MOVEMENT_ACCOUNT_IDENTIFIER_REQUIRED = "At least one account identifier must be provided: accountId or accountNumber";
     public static final String VALIDATION_ERROR = "Validation error";
     public static final String INVALID_REQUEST_BODY = "Invalid request body. Please check field types.";
 
@@ -51,7 +52,9 @@ public final class AccountMessages {
 
     // === Movement Log Messages ===
     public static final String LOG_MOVEMENT_GET_ALL = "GET /api/v1/movements - Getting all movements";
+    public static final String LOG_MOVEMENT_GET_BY_CUSTOMER = "Fetching movements for customer ID: {}";
     public static final String LOG_MOVEMENT_GET_ALL_SUCCESS = "Successfully fetched all movements";
+    public static final String LOG_MOVEMENT_GET_BY_CUSTOMER_SUCCESS = "Successfully fetched movements for customer ID: {}";
     public static final String LOG_MOVEMENT_GET_BY_ID = "GET /api/v1/movements/{} - Getting movement by ID";
     public static final String LOG_MOVEMENT_DELETE = "DELETE /api/v1/movements/{} - Deleting movement";
     public static final String LOG_MOVEMENT_REGISTERED = "Movement registered: type={}, value={}, newBalance={}";

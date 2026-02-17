@@ -124,4 +124,12 @@ public class AccountServiceImpl implements AccountService {
                     return accountRepository.save(account);
                 });
     }
+
+    @Override
+    public Mono<Account> getAccountByNumber(String accountNumber) {
+        log.debug(AccountMessages.LOG_ACCOUNT_GET_BY_NUMBER, accountNumber);
+        return accountRepository.findByAccountNumber(accountNumber)
+                .switchIfEmpty(Mono.error(new AccountNotFoundException(
+                        String.format(AccountMessages.ACCOUNT_NOT_FOUND_NUMBER, accountNumber))));
+    }
 }
