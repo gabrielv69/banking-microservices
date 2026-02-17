@@ -49,7 +49,6 @@ public class AccountMapper {
         response.setAccountId(account.getId());
         response.setAccountNumber(account.getAccountNumber());
         response.setAccountType(account.getAccountType());
-        response.setInitialBalance(account.getInitialBalance());
         response.setCurrentBalance(account.getCurrentBalance());
         response.setStatus(account.getStatus());
         response.setCustomerId(account.getCustomerId());

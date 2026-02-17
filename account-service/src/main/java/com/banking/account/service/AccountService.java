@@ -12,10 +12,11 @@ import java.math.BigDecimal;
 public interface AccountService {
 
     /**
-     * Get all accounts
-     * @return Flux of all accounts
+     * Get all accounts with optional filtering by customer
+     * @param customerId Optional customer ID filter (null = all accounts)
+     * @return Flux of Accounts (filtered or not)
      */
-    Flux<Account> getAllAccounts();
+    Flux<Account> getAllAccounts(Long customerId);
 
     /**
      * Get account by ID
@@ -23,20 +24,6 @@ public interface AccountService {
      * @return Mono of Account
      */
     Mono<Account> getAccountById(Long accountId);
-
-    /**
-     * Get account by account number
-     * @param accountNumber account number
-     * @return Mono of Account
-     */
-    Mono<Account> getAccountByNumber(String accountNumber);
-
-    /**
-     * Get all accounts by customer ID
-     * @param customerId customer ID
-     * @return Flux of Accounts
-     */
-    Flux<Account> getAccountsByCustomerId(Long customerId);
 
     /**
      * Create a new account

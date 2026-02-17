@@ -227,13 +227,14 @@ cd account-service
 ### Account Service (Puerto 8082)
 
 #### Cuentas
-| Método | Endpoint | Descripción |
-|--------|----------|-------------|
-| GET | `/api/v1/accounts` | Listar todas las cuentas |
-| GET | `/api/v1/accounts/{id}` | Obtener cuenta por ID |
-| POST | `/api/v1/accounts` | Crear nueva cuenta |
-| PUT | `/api/v1/accounts/{id}` | Actualizar cuenta |
-| DELETE | `/api/v1/accounts/{id}` | Eliminar cuenta |
+| Método | Endpoint                        | Descripción                    |
+|--------|---------------------------------|--------------------------------|
+| GET | `/api/v1/accounts`              | Listar todas las cuentas       |
+| GET | `/api/v1/accounts?customerId=1` | Obtener cuenta por customer ID |
+| GET | `/api/v1/accounts/{id}`         | Obtener cuenta por ID          |
+| POST | `/api/v1/accounts`              | Crear nueva cuenta             |
+| PUT | `/api/v1/accounts/{id}`         | Actualizar cuenta              |
+| DELETE | `/api/v1/accounts/{id}`         | Eliminar cuenta                |
 
 #### Movimientos
 | Método | Endpoint | Descripción |
