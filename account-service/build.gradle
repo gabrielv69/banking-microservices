@@ -41,21 +41,18 @@ dependencies {
     implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.8.15'
     implementation 'org.openapitools:jackson-databind-nullable:0.2.8'
     implementation 'io.swagger.core.v3:swagger-annotations:2.2.41'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
-}
-
 
 // Configuracion de OpenAPI Generator
 openApiGenerate {
     generatorName = "spring"
-    inputSpec = "${rootProject.projectDir}/api-contracts/account-api.yaml"
+    inputSpec = "${projectDir}/account-api.yaml"
     outputDir = "$buildDir/generated".toString()
     apiPackage = "com.banking.account.infrastructure.adapter.rest.generated"
     modelPackage = "com.banking.account.infrastructure.adapter.rest.generated.model"
@@ -64,7 +61,11 @@ openApiGenerate {
             interfaceOnly: "true",
             skipDefaultInterface: "true",
             useTags: "true",
-            useSpringBoot3: "true"
+            useSpringBoot3: "true",
+            useBigDecimal: "true"
+    ]
+    typeMappings = [
+            decimal: "java.math.BigDecimal"  // ← Mapea decimal a BigDecimal
     ]
 }
 

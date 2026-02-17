@@ -21,5 +21,32 @@ customer-service:
 logging:
   level:
     root: INFO
-    com.banking.customer: DEBUG
+    com.banking.account: DEBUG
     org.springframework.r2dbc: DEBUG
+
+# Swagger UI / OpenAPI Configuration
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    try-it-out-enabled: true
+    operations-sorter: method
+    tags-sorter: alpha
+  show-actuator: false
+
+# Actuator endpoints configuration
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+  health:
+    defaults:
+      enabled: true
