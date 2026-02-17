@@ -12,6 +12,7 @@ Solución de microservicios para gestión bancaria desarrollada con Spring Boot 
 - [Endpoints Disponibles](#endpoints-disponibles)
 - [Testing](#testing)
 - [Documentación API](#documentación-api)
+- [Colección de Postman](#colección-de-postman)
 
 ---
 
@@ -310,8 +311,15 @@ Accede a la documentación interactiva:
 - **Customer Service:** http://localhost:8081/v3/api-docs
 - **Account Service:** http://localhost:8082/v3/api-docs
 
+## Colección de Postman
+
+En la raíz del proyecto se incluye el archivo `Banking Microservices.postman_collection.json` que contiene todos los endpoints configurados y listos para probar.
+
+### Cómo importar
+
+1. Abrir **Postman**.
+2. Clic en **Import** (esquina superior izquierda).
+3. Arrastrar el archivo `Banking Microservices.postman_collection.json` o seleccionarlo desde el explorador.
+4. La colección aparecerá en tu espacio de trabajo con carpetas organizadas por servicio.
+
 ---
-
-
-
-

@@ -1,0 +1,815 @@
+{
+  "info": {
+    "_postman_id": "7b3fbce9-c8eb-40bb-898e-f569c47a53cd",
+    "name": "Banking Microservices",
+    "description": "Complete API collection for Banking Microservices project\n\nIncludes:\n\n- Customer Service (Port 8081)\n    \n- Account Service (Port 8082)\n    \n- Movement Service (Port 8082)\n    \n- Report Service (Port 8082)\n    \n\nTest Cases:\n\n- CRUD operations\n    \n- Business validations (F2, F3)\n    \n- Error scenarios",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "23210168"
+  },
+  "item": [
+    {
+      "name": "Customer Service",
+      "item": [
+        {
+          "name": "Get All Customers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{customer-service}}/customers",
+              "host": [
+                "{{customer-service}}"
+              ],
+              "path": [
+                "customers"
+              ]
+            },
+            "description": "Retrieve all customers from the database"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Customer by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{customer-service}}/customers/1",
+              "host": [
+                "{{customer-service}}"
+              ],
+              "path": [
+                "customers",
+                "1"
+              ]
+            },
+            "description": "Get a specific customer by ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Customer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Customer\",\n  \"gender\": \"MALE\",\n  \"identification\": \"9999999999\",\n  \"address\": \"Test Address 123\",\n  \"phone\": \"0999999999\",\n  \"password\": \"test1234\",\n  \"status\": true\n}"
+            },
+            "url": {
+              "raw": "{{customer-service}}/customers",
+              "host": [
+                "{{customer-service}}"
+              ],
+              "path": [
+                "customers"
+              ]
+            },
+            "description": "Create a new customer"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Customer",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Test Customer Updated\",\n  \"gender\": \"MALE\",\n  \"identification\": \"9999999999\",\n  \"address\": \"Updated Address 456\",\n  \"phone\": \"0988888888\",\n  \"password\": \"newpass1234\",\n  \"status\": true\n}"
+            },
+            "url": {
+              "raw": "{{customer-service}}/customers/1",
+              "host": [
+                "{{customer-service}}"
+              ],
+              "path": [
+                "customers",
+                "1"
+              ]
+            },
+            "description": "Update an existing customer"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Customer",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{customer-service}}/customers/1",
+              "host": [
+                "{{customer-service}}"
+              ],
+              "path": [
+                "customers",
+                "1"
+              ]
+            },
+            "description": "Delete a customer by ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Customer by ID - Not Found (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{customer-service}}/customers/99999",
+              "host": [
+                "{{customer-service}}"
+              ],
+              "path": [
+                "customers",
+                "99999"
+              ]
+            },
+            "description": "Test error case: customer not found"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Customer - Duplicate (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Jose Lema\",\n  \"gender\": \"MALE\",\n  \"identification\": \"1234567890\",\n  \"address\": \"Test Address\",\n  \"phone\": \"0999999999\",\n  \"password\": \"test1234\",\n  \"status\": true\n}"
+            },
+            "url": {
+              "raw": "{{customer-service}}/customers",
+              "host": [
+                "{{customer-service}}"
+              ],
+              "path": [
+                "customers"
+              ]
+            },
+            "description": "Test error case: duplicate customer identification"
+          },
+          "response": []
+        }
+      ],
+      "description": "Customer management endpoints (Port 8081)"
+    },
+    {
+      "name": "Account Service",
+      "item": [
+        {
+          "name": "Get All Accounts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{account-service}}/accounts",
+              "host": [
+                "{{account-service}}"
+              ],
+              "path": [
+                "accounts"
+              ]
+            },
+            "description": "Retrieve all accounts"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Accounts By customer ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{account-service}}/accounts?customerId=1",
+              "host": [
+                "{{account-service}}"
+              ],
+              "path": [
+                "accounts"
+              ],
+              "query": [
+                {
+                  "key": "customerId",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "Retrieve all accounts"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Account by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{account-service}}/accounts/1",
+              "host": [
+                "{{account-service}}"
+              ],
+              "path": [
+                "accounts",
+                "1"
+              ]
+            },
+            "description": "Get specific account by ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Account - Savings",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountNumber\": \"111111\",\n  \"accountType\": \"SAVINGS\",\n  \"initialBalance\": 1000.00,\n  \"status\": true,\n  \"customerId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{account-service}}/accounts",
+              "host": [
+                "{{account-service}}"
+              ],
+              "path": [
+                "accounts"
+              ]
+            },
+            "description": "Create a new savings account"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Account - Checking",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountNumber\": \"222222\",\n  \"accountType\": \"CHECKING\",\n  \"initialBalance\": 500.00,\n  \"status\": true,\n  \"customerId\": 2\n}"
+            },
+            "url": {
+              "raw": "{{account-service}}/accounts",
+              "host": [
+                "{{account-service}}"
+              ],
+              "path": [
+                "accounts"
+              ]
+            },
+            "description": "Create a new checking account"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Account",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountNumber\": \"478758\",\n  \"accountType\": \"SAVINGS\",\n  \"initialBalance\": 2500.00,\n  \"status\": true,\n  \"customerId\": 1\n}"
+            },
+            "url": {
+              "raw": "{{account-service}}/accounts/1",
+              "host": [
+                "{{account-service}}"
+              ],
+              "path": [
+                "accounts",
+                "1"
+              ]
+            },
+            "description": "Update existing account"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Account",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{account-service}}/accounts/1",
+              "host": [
+                "{{account-service}}"
+              ],
+              "path": [
+                "accounts",
+                "1"
+              ]
+            },
+            "description": "Delete an account"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Account by ID - Not Found (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{account-service}}/accounts/99999",
+              "host": [
+                "{{account-service}}"
+              ],
+              "path": [
+                "accounts",
+                "99999"
+              ]
+            },
+            "description": "Test error case: account not found"
+          },
+          "response": []
+        }
+      ],
+      "description": "Account management endpoints (Port 8082)"
+    },
+    {
+      "name": "Movement Service",
+      "item": [
+        {
+          "name": "Get All Movements",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{account-service}}/movements",
+              "host": [
+                "{{account-service}}"
+              ],
+              "path": [
+                "movements"
+              ]
+            },
+            "description": "Get all movements (transactions) ordered by date DESC"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Movements By Customer Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{account-service}}/movements",
+              "host": [
+                "{{account-service}}"
+              ],
+              "path": [
+                "movements"
+              ]
+            },
+            "description": "Get all movements (transactions) ordered by date DESC"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Movement by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{account-service}}/movements/1",
+              "host": [
+                "{{account-service}}"
+              ],
+              "path": [
+                "movements",
+                "1"
+              ]
+            },
+            "description": "Get specific movement by ID"
+          },
+          "response": []
+        },
+        {
+          "name": "F2 - Register CREDIT Movement- accountNumber",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountNumber\": 585545,\n  \"movementType\": \"CREDIT\",\n  \"value\": 1530.00\n}"
+            },
+            "url": {
+              "raw": "{{account-service}}/movements",
+              "host": [
+                "{{account-service}}"
+              ],
+              "path": [
+                "movements"
+              ]
+            },
+            "description": "F2: Register CREDIT movement (adds to balance)\n\nExpected: Balance increases by 600.00"
+          },
+          "response": []
+        },
+        {
+          "name": "F2 - Register CREDIT Movement - countId",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountId\": 1,\n  \"movementType\": \"CREDIT\",\n  \"value\": 600.00\n}"
+            },
+            "url": {
+              "raw": "{{account-service}}/movements",
+              "host": [
+                "{{account-service}}"
+              ],
+              "path": [
+                "movements"
+              ]
+            },
+            "description": "F2: Register CREDIT movement (adds to balance)\n\nExpected: Balance increases by 600.00"
+          },
+          "response": []
+        },
+        {
+          "name": "F2 - Register DEBIT Movement (Success)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountId\": 1,\n  \"movementType\": \"DEBIT\",\n  \"value\": 575.00\n}"
+            },
+            "url": {
+              "raw": "{{account-service}}/movements",
+              "host": [
+                "{{account-service}}"
+              ],
+              "path": [
+                "movements"
+              ]
+            },
+            "description": "F2: Register DEBIT movement (subtracts from balance)\n\nExpected: Balance decreases by 575.00"
+          },
+          "response": []
+        },
+        {
+          "name": "F3 - DEBIT with Insufficient Balance (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountId\": 1,\n  \"movementType\": \"DEBIT\",\n  \"value\": 999999.00\n}"
+            },
+            "url": {
+              "raw": "{{account-service}}/movements",
+              "host": [
+                "{{account-service}}"
+              ],
+              "path": [
+                "movements"
+              ]
+            },
+            "description": "F3: Test insufficient balance validation\n\nExpected Response: 400 BAD REQUEST\nMessage: \"Saldo no disponible\""
+          },
+          "response": []
+        },
+        {
+          "name": "F2 - Invalid Movement Value (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountId\": 1,\n  \"movementType\": \"DEBIT\",\n  \"value\": 0\n}"
+            },
+            "url": {
+              "raw": "{{account-service}}/movements",
+              "host": [
+                "{{account-service}}"
+              ],
+              "path": [
+                "movements"
+              ]
+            },
+            "description": "F2: Test value validation (must be > 0)\n\nExpected: 400 BAD REQUEST"
+          },
+          "response": []
+        },
+        {
+          "name": "F2 - Invalid Movement Value Negative (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountId\": 1,\n  \"movementType\": \"CREDIT\",\n  \"value\": -100.00\n}"
+            },
+            "url": {
+              "raw": "{{account-service}}/movements",
+              "host": [
+                "{{account-service}}"
+              ],
+              "path": [
+                "movements"
+              ]
+            },
+            "description": "F2: Test negative value validation\n\nExpected: 400 BAD REQUEST"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Movement",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{account-service}}/movements/1",
+              "host": [
+                "{{account-service}}"
+              ],
+              "path": [
+                "movements",
+                "1"
+              ]
+            },
+            "description": "Delete a movement\n\nNote: In production, consider using compensating transactions instead"
+          },
+          "response": []
+        }
+      ],
+      "description": "Movement (Transaction) management endpoints\n\nImplements:\n- F2: Movement registration with business rules\n- F3: Balance validation"
+    },
+    {
+      "name": "Report Service",
+      "item": [
+        {
+          "name": "F4 - Generate Account Statement Report",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{account-service}}/reports/1?startDate=2026-01-01&endDate=2026-02-17",
+              "host": [
+                "{{account-service}}"
+              ],
+              "path": [
+                "reports",
+                "1"
+              ],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "2026-01-01"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2026-02-17"
+                }
+              ]
+            },
+            "description": "F4: Generate account statement report for a customer\n\nReturns:\n- Customer information\n- All accounts for the customer\n- All movements within date range for each account"
+          },
+          "response": []
+        },
+        {
+          "name": "F4 - Report Customer Not Found (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{account-service}}/reports/99999?startDate=2024-01-01&endDate=2024-12-31",
+              "host": [
+                "{{account-service}}"
+              ],
+              "path": [
+                "reports",
+                "99999"
+              ],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "2024-01-01"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2024-12-31"
+                }
+              ]
+            },
+            "description": "Test error case: customer not found"
+          },
+          "response": []
+        }
+      ],
+      "description": "Report generation endpoints\n\nImplements:\n- F4: Account statement report generation"
+    },
+    {
+      "name": "Test Scenarios",
+      "item": [
+        {
+          "name": "Scenario 1 - Jose Lema Complete Flow",
+          "item": [
+            {
+              "name": "1. Get Jose Lema Customer",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{customer-service}}/customers/1",
+                  "host": [
+                    "{{customer-service}}"
+                  ],
+                  "path": [
+                    "customers",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "3. Register DEBIT -575",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountId\": 5,\n  \"movementType\": \"DEBIT\",\n  \"value\": 575.00\n}"
+                },
+                "url": {
+                  "raw": "{{account-service}}/movements",
+                  "host": [
+                    "{{account-service}}"
+                  ],
+                  "path": [
+                    "movements"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "4. Register CREDIT +600",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountId\": 1,\n  \"movementType\": \"CREDIT\",\n  \"value\": 600.00\n}"
+                },
+                "url": {
+                  "raw": "{{account-service}}/movements",
+                  "host": [
+                    "{{account-service}}"
+                  ],
+                  "path": [
+                    "movements"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "5. Register DEBIT -1000",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"accountId\": 1,\n  \"movementType\": \"DEBIT\",\n  \"value\": 1000.00\n}"
+                },
+                "url": {
+                  "raw": "{{account-service}}/movements",
+                  "host": [
+                    "{{account-service}}"
+                  ],
+                  "path": [
+                    "movements"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "6. Generate Report",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{account-service}}/reports/1?startDate=2024-01-01&endDate=2024-12-31",
+                  "host": [
+                    "{{account-service}}"
+                  ],
+                  "path": [
+                    "reports",
+                    "1"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "2024-01-01"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "2024-12-31"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ],
+          "description": "Complete test scenario for Jose Lema\n\nMatches Case 1 from PDF:\n1. Initial balance: 2000\n2. DEBIT -575 → Balance: 1425\n3. CREDIT +600 → Balance: 2025\n4. DEBIT -1000 → Balance: 1025"
+        }
+      ],
+      "description": "End-to-end test scenarios"
+    }
+  ],
+  "variable": [
+    {
+      "key": "customer-service",
+      "value": "http://localhost:8081/api/v1",
+      "type": "string"
+    },
+    {
+      "key": "account-service",
+      "value": "http://localhost:8082/api/v1",
+      "type": "string"
+    }
+  ]
+}
